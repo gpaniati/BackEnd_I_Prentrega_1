@@ -5,10 +5,11 @@ export default class ProductManager {
     #rutaDelArchivoDeProductosJSON;
 
     constructor() {
-        this.#rutaDelArchivoDeProductosJSON = path.join("files", "products.json");
+        this.#rutaDelArchivoDeProductosJSON = path.join("./src/files", "products.json");
     }
 
-    #generarIdProducto = () => {
+    //Genera Id de nuevo producto.
+    #generarIdProducto = async () => {
         let mayorId = 0;
         const productos = await this.#obtenerproductos();
         productos.forEach((producto) => {
@@ -64,6 +65,6 @@ export default class ProductManager {
 
     consultarproductos = async () => {
         const productos = await this.#obtenerproductos();
-        console.log(productos);
+        return productos;
     }
 }
