@@ -62,8 +62,9 @@ export default class ProductManager {
         await this.#persistirProducto(nuevoProducto);
     }
 
-    consultarproductos = async () => {
+    consultarProductos = async () => {
         const productos = await this.#obtenerProductos();
+        console.log(productos);
         return productos;
     }
 }
