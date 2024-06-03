@@ -46,7 +46,7 @@ export default class ProductManager {
     }
 
     crearProducto = async (title, description, code, price, status, stock, category, thumbnails) => {
-        const idProducto = this.#generarIdProducto();
+        const idProducto = await this.#generarIdProducto();
         const nuevoProducto = {
             id: idProducto,
             title,
