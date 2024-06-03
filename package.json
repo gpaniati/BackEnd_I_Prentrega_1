@@ -1,7 +1,7 @@
 {
     "name": "primera-entrega",
     "version": "1.0.0",
-    "description": "",
+    "description": "MI API RESTFUL",
     "main": "server.js",
     "type": "module",
     "scripts": {
@@ -10,8 +10,8 @@
         "stop-linux": "killall -9 node"
     },
     "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "author": "Gaston Paniati",
+    "license": "MIT",
     "dependencies": {
         "express": "^4.19.2"
     }

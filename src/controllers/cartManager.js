@@ -49,7 +49,7 @@ export default class CartManager {
         const idCarrito = this.#generarIdCarrito();
         const nuevoCarrito = {
             id: idCarrito,
-            productos
+            productos: []
         };
 
         await this.#persistirCarrito(nuevoCarrito);

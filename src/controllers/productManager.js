@@ -64,7 +64,6 @@ export default class ProductManager {
 
     consultarProductos = async () => {
         const productos = await this.#obtenerProductos();
-        console.log(productos);
         return productos;
     }
 }
