@@ -41,7 +41,7 @@ server.get('/api/products/:pid', async (req, res) => {
 
 // Endpoint: Método POST que escucha en la URL http://localhost:8080/api/products
 // Deberá agregar un nuevo producto.
-server.post('/api/products', (req, res) => {
+server.post('/api/products', async (req, res) => {
     const {title, description, code, price, status, stock, category, thumbnails } = req.body;
 
     if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
@@ -49,7 +49,7 @@ server.post('/api/products', (req, res) => {
     }
 
     // Esto agrega el producto en el archivo de productos.
-    products.crearProducto(title, description, code, Number(price), Boolean(status), Number(stock), category, thumbnails);
+    await products.crearProducto(title, description, code, Number(price), Boolean(status), Number(stock), category, thumbnails);
 
     return res.status(201).send({ status: "success", message: "El producto de ha agregado a la base" });
 });
@@ -74,29 +74,15 @@ server.put('/api/usuarios/:idUsuario', (req, res) => {
 
     return res.status(200).send({ status: "success", message: "El usuario se ha modificado" });
 });
-
-// Endpoint: Método DELETE que escucha en la URL http://localhost:8080/api/usuarios/2
-// Eliminar un usuario por id.
-server.delete('/api/usuarios/:idUsuario', (req, res) => {
-    const { idUsuario } = req.params;
-    const indice = usuarios.findIndex((usuario) => usuario.id === Number(idUsuario));
-
-    if (indice < 0) {
-        return res.status(400).send({ status: "error", message: "Usuario no encontrado" });
-    }
-
-    // Esto elimina al usuario del array
-    usuarios.splice(indice, 1);
-    console.log(usuarios);
-
-    return res.status(200).send({ status: "success", message: "El usuario se ha eliminado" });
-});
-
-// Método que responde a las URL inexistentes
-server.use("*", (req, res) => {
-    return res.status(404).send("<h1>Error 404</h1><p>Recurso no encontrado</p>");
-});
 */
+// Endpoint: Método DELETE que escucha en la URL http://localhost:8080/api/productos/:pid
+// Eliminar un producto por id.
+server.delete('/api/products/:pid', async (req, res) => {
+    const { pid } = req.params;
+    await products.borrarProducto(Number(pid));
+
+    return res.status(200).send({ status: "success", message: "El producto ha sido eliminado" });
+});
 
 // Método que responde a las URL inexistentes
 server.use("*", (req, res) => {

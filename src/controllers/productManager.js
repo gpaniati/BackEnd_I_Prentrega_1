@@ -45,6 +45,17 @@ export default class ProductManager {
         await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, productosActualizadosJSON);
     }
 
+    borrarProducto = async (idProducto) => {
+        const productos = await this.#obtenerProductos();
+
+        // Se quita el Producto al array de productos
+        const productosF = productos.filter((producto) => producto.id != idProducto);
+
+        // Se vuelve a convertir a JSON y se sobrescribe el archivo products.json
+        const productosActualizadosJSON = JSON.stringify(productosF, null, "\t");
+        await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, productosActualizadosJSON);
+    }
+
     crearProducto = async (title, description, code, price, status, stock, category, thumbnails) => {
         const idProducto = await this.#generarIdProducto();
         const nuevoProducto = {
