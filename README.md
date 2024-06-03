@@ -5,4 +5,5 @@
 - Node.js v18.17.1
 - GIT v2.34.1
 - IDE - Visual Studio Code v1.88.1
-*Alumno Gaston Paniati*
+
+**Alumno Gaston Paniati**
