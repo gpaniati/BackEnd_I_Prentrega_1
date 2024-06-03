@@ -29,58 +29,73 @@ server.get('/api/products', async (req, res) => {
 // Obtiene sólo el producto con el id proporcionado.
 server.get('/api/products/:pid', async (req, res) => {
     const { pid } = req.params;
-    const productos = await products.consultarProductos();
-    const producto = productos.find((producto) => producto.id === Number(pid));
 
-    if (!producto) {
+    //Valida que el producto a cosultar exista.
+    const productosExistentes = await products.consultarProductos();
+    const productoExistente = productosExistentes.find((producto) => producto.id === Number(pid));
+
+    if (!productoExistente) 
         return res.status(400).send({ status: "error", message: "Producto no encontrado" });
-    }
 
-    return res.status(200).send({ status: "success", payload: producto });
+    return res.status(200).send({ status: "success", payload: productoExistente });
 });
 
 // Endpoint: Método POST que escucha en la URL http://localhost:8080/api/products
 // Deberá agregar un nuevo producto.
 server.post('/api/products', async (req, res) => {
-    const {title, description, code, price, status, stock, category, thumbnails } = req.body;
+    const { title, description, code, price, status, stock, category, thumbnails } = req.body;
 
     if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
         return res.status(400).send({ status: "error", message: "Datos incompletos" });
     }
 
     // Esto agrega el producto en el archivo de productos.
-    await products.crearProducto(title, description, code, Number(price), Boolean(status), Number(stock), category, thumbnails);
+    await products.agregarProducto(title, description, code, Number(price), Boolean(status), Number(stock), category, thumbnails);
 
     return res.status(201).send({ status: "success", message: "El producto de ha agregado a la base" });
 });
-/*
-// Endpoint: Método PUT que escucha en la URL http://localhost:8080/api/usuarios/2
-// Modificar un usuario por id.
-server.put('/api/usuarios/:idUsuario', (req, res) => {
-    const { idUsuario } = req.params;
-    const { nombre, apellido, edad, correo, genero } = req.body;
-    const indice = usuarios.findIndex((usuario) => usuario.id === Number(idUsuario));
 
-    if (indice < 0) {
-        return res.status(400).send({ status: "error", message: "Usuario no encontrado" });
-    }
+// Endpoint: Método PUT que escucha en la URL http://localhost:8080/api/products/:pid
+// Modificar un producto por id.
+server.put('/api/products/:pid', async (req, res) => {
+    const { pid } = req.params;
+    const { title, description, code, price, status, stock, category, thumbnails } = req.body;
 
-    if (!nombre || !apellido || !edad || !correo || !genero) {
+    //Valida que vengan todos los campo informados con posibles modificaciones.
+    if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
         return res.status(400).send({ status: "error", message: "Datos incompletos" });
     }
 
-    // Esto reemplaza el usuario en el array
-    usuarios[index] = { id: Number(idUsuario), nombre, apellido, edad, correo, genero };
+    //Valida que vengan exista el producto a modificar.
+    if(!(await products.existeProducto(pid)))
+        return res.status(400).send({ status: "error", message: "Producto a modificar no encontrado" });
 
-    return res.status(200).send({ status: "success", message: "El usuario se ha modificado" });
+    const productoModificado = {
+        id: Number(pid),
+        title,
+        description,
+        code,
+        price,
+        status,
+        stock,
+        category,
+        thumbnails
+    }
+
+    await products.actualizarProducto(productoModificado);
+    return res.status(200).send({ status: "success", message: "El producto se ha modificado" });
 });
-*/
-// Endpoint: Método DELETE que escucha en la URL http://localhost:8080/api/productos/:pid
+
+// Endpoint: Método DELETE que escucha en la URL http://localhost:8080/api/products/:pid
 // Eliminar un producto por id.
 server.delete('/api/products/:pid', async (req, res) => {
     const { pid } = req.params;
-    await products.borrarProducto(Number(pid));
 
+    //Valida que vengan exista el producto a eliminar.
+    if(!(await products.existeProducto(pid)))
+        return res.status(400).send({ status: "error", message: "Producto a eliminar no encontrado" });
+
+    await products.eliminarProducto(Number(pid));
     return res.status(200).send({ status: "success", message: "El producto ha sido eliminado" });
 });
 

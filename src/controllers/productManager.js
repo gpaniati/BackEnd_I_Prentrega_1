@@ -45,7 +45,7 @@ export default class ProductManager {
         await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, productosActualizadosJSON);
     }
 
-    borrarProducto = async (idProducto) => {
+    eliminarProducto = async (idProducto) => {
         const productos = await this.#obtenerProductos();
 
         // Se quita el Producto al array de productos
@@ -56,7 +56,28 @@ export default class ProductManager {
         await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, productosActualizadosJSON);
     }
 
-    crearProducto = async (title, description, code, price, status, stock, category, thumbnails) => {
+    actualizarProducto = async ({ id, ...resto }) => {
+        // Se quita el Producto a actualizar del archivo de productos.
+        await this.eliminarProducto(Number(id));
+        const productoActualizado = { id, ...resto };
+
+        //Se inserta el producto con los datos actualizados.
+        await this.#persistirProducto(productoActualizado);
+    }
+
+    //Valida si existe el porducto con id pasado por parametro.
+    existeProducto = async (idProducto) => {
+        const productosExistentes = await this.#obtenerProductos();
+        const productoExistente = productosExistentes.find((producto) => producto.id === Number(idProducto));
+
+        if(!productoExistente)
+            return false;
+
+        return true;
+    }
+
+    //Crea e agrega un producto nuevo.
+    agregarProducto = async (title, description, code, price, status, stock, category, thumbnails) => {
         const idProducto = await this.#generarIdProducto();
         const nuevoProducto = {
             id: idProducto,

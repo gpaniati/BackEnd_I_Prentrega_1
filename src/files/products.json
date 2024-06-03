@@ -1,16 +1,5 @@
 [
 	{
-		"id": 1,
-		"title": "Granola 1Kg",
-		"description": "Contiene copos, avena, salvado y pasas de uva",
-		"code": "IDP_007",
-		"price": 1500,
-		"status": true,
-		"stock": 20,
-		"category": "cereales",
-		"thumbnails": "/images/modofit_producto_7.png"
-	},
-	{
 		"id": 2,
 		"title": "Mermelada de ciruela",
 		"description": "Mermelada dietética sin azúcar endulzada con stevia",
@@ -51,6 +40,17 @@
 		"price": 1000,
 		"status": true,
 		"stock": 20,
+		"category": "bebidas",
+		"thumbnails": "/images/modofit_producto_1.png"
+	},
+	{
+		"id": 6,
+		"title": "Jugo de arandano",
+		"description": "Jugo de arándano con pulpa endulzado con stevia",
+		"code": "IDP_001",
+		"price": "1100",
+		"status": "true",
+		"stock": "12",
 		"category": "bebidas",
 		"thumbnails": "/images/modofit_producto_1.png"
 	}
