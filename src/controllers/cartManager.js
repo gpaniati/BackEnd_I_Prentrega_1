@@ -45,14 +45,38 @@ export default class CartManager {
         await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, carritosActualizadosJSON);
     }
 
-    crearCarrito = async (productos) => {
-        const idCarrito = this.#generarIdCarrito();
+    eliminarCarrito = async (idCarrito) => {
+        const carritos = await this.#obtenerCarritos();
+
+        // Se quita el carrito al array de carritos
+        const carritosF = carritos.filter((carrito) => carrito.id != idCarrito);
+
+        // Se vuelve a convertir a JSON y se sobrescribe el archivo carts.json
+        const carritosActualizadosJSON = JSON.stringify(carritosF, null, "\t");
+        await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, carritosActualizadosJSON);
+    }
+
+    actualizarCarrito = async ({ id, ...resto }) => {
+        // Se quita el carrito a actualizar del archivo de carritos
+        await this.eliminarCarrito(Number(id));
+        const carritoActualizado = { id, ...resto };
+
+        //Se inserta nuevamente el carrito como los productos actualizados
+        await this.#persistirCarrito(carritoActualizado);
+    }
+
+    crearCarrito = async () => {
+        const idCarrito = await this.#generarIdCarrito();
         const nuevoCarrito = {
             id: idCarrito,
-            productos: []
+            products: []
         };
 
         await this.#persistirCarrito(nuevoCarrito);
+    }
+
+    agregarProductoACarrito = async (pid) => {
+
     }
 
     consultarCarritos = async () => {
