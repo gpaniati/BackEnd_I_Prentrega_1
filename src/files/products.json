@@ -61,7 +61,7 @@
 		"code": "IDP_001",
 		"price": 1100,
 		"status": true,
-		"stock": 10,
+		"stock": 8,
 		"category": "bebidas",
 		"thumbnails": "/images/modofit_producto_1.png"
 	}

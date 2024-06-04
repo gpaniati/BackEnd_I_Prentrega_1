@@ -1,6 +1,6 @@
 import express from "express";
-import ProductManager from "./src/controllers/ProductManager.js";
-import CartManager from "./src/controllers/CartManager.js";
+import ProductManager from "./src/managers/productsManager.js";
+import CartManager from "./src/managers/cartsManager.js";
 
 const server = express();
 const PORT = 8080;
