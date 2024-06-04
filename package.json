@@ -5,7 +5,7 @@
     "main": "server.js",
     "type": "module",
     "scripts": {
-        "start": "node --watch --no-warnings ./server.js",
+        "start": "node --watch --no-warnings src/server.js",
         "stop-windows": "taskkill /F /IM node.exe",
         "stop-linux": "killall -9 node"
     },

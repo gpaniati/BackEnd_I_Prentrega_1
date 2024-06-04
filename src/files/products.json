@@ -1,68 +1,57 @@
 [
-	{
-		"id": 1,
-		"title": "Granola 1Kg",
-		"description": "Contiene copos, avena, salvado y pasas de uva",
-		"code": "IDP_007",
-		"price": 1500,
-		"status": true,
-		"stock": 20,
-		"category": "cereales",
-		"thumbnails": "/images/modofit_producto_7.png"
-	},
-	{
-		"id": 2,
-		"title": "Mermelada de ciruela",
-		"description": "Mermelada dietética sin azúcar endulzada con stevia",
-		"code": "IDP_011",
-		"price": 990,
-		"status": true,
-		"stock": 20,
-		"category": "mermeladas",
-		"thumbnails": "/images/modofit_producto_11.png"
-	},
-	{
-		"id": 3,
-		"title": "Mermelada de frutos rojos",
-		"description": "Mermelada dietética sin azúcar",
-		"code": "IDP_004",
-		"price": 990,
-		"status": true,
-		"stock": 20,
-		"category": "mermeladas",
-		"thumbnails": "/images/modofit_producto_4.png"
-	},
-	{
-		"id": 4,
-		"title": "Galletitas de avena",
-		"description": "Vegano, con stevia. 0% grasas trans",
-		"code": "IDP_012",
-		"price": 400,
-		"status": true,
-		"stock": 20,
-		"category": "desayuno",
-		"thumbnails": "/images/modofit_producto_12.png"
-	},
-	{
-		"id": 6,
-		"title": "Leche de almanedras",
-		"description": "Lecha de almendras sin azucar",
-		"code": "IDP_003",
-		"price": 2600,
-		"status": true,
-		"stock": 20,
-		"category": "bebidas",
-		"thumbnails": "/images/modofit_producto_3.png"
-	},
-	{
-		"id": 5,
-		"title": "Jugo de arandano",
-		"description": "Jugo de arándano con pulpa endulzado con stevia",
-		"code": "IDP_001",
-		"price": 1100,
-		"status": true,
-		"stock": 8,
-		"category": "bebidas",
-		"thumbnails": "/images/modofit_producto_1.png"
-	}
+    {
+        "id": 1,
+        "title": "Granola 1Kg",
+        "description": "Contiene copos, avena, salvado y pasas de uva",
+        "code": "IDP_007",
+        "price": 1500,
+        "status": true,
+        "stock": 20,
+        "category": "cereales",
+        "thumbnails": "/images/modofit_producto_7.png"
+    },
+    {
+        "id": 2,
+        "title": "Mermelada de ciruela",
+        "description": "Mermelada dietética sin azúcar endulzada con stevia",
+        "code": "IDP_011",
+        "price": 990,
+        "status": true,
+        "stock": 20,
+        "category": "mermeladas",
+        "thumbnails": "/images/modofit_producto_11.png"
+    },
+    {
+        "id": 3,
+        "title": "Mermelada de frutos rojos",
+        "description": "Mermelada dietética sin azúcar",
+        "code": "IDP_004",
+        "price": 990,
+        "status": true,
+        "stock": 20,
+        "category": "mermeladas",
+        "thumbnails": "/images/modofit_producto_4.png"
+    },
+    {
+        "id": 4,
+        "title": "Galletitas de avena",
+        "description": "Vegano, con stevia. 0% grasas trans",
+        "code": "IDP_012",
+        "price": 400,
+        "status": true,
+        "stock": 20,
+        "category": "desayuno",
+        "thumbnails": "/images/modofit_producto_12.png"
+    },
+    {
+        "id": 5,
+        "title": "Jugo de arandano",
+        "description": "Jugo de arándano con pulpa endulzado con stevia",
+        "code": "IDP_001",
+        "price": 1105,
+        "status": true,
+        "stock": 17,
+        "category": "bebidas",
+        "thumbnails": "/images/modofit_producto_1.png"
+    }
 ]
