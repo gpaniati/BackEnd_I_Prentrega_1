@@ -45,7 +45,7 @@ export default class CartManager {
         await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, carritosActualizadosJSON);
     }
 
-    eliminarCarrito = async (idCarrito) => {
+    #eliminarCarrito = async (idCarrito) => {
         const carritos = await this.#obtenerCarritos();
 
         // Se quita el carrito al array de carritos
@@ -58,11 +58,22 @@ export default class CartManager {
 
     actualizarCarrito = async ({ id, ...resto }) => {
         // Se quita el carrito a actualizar del archivo de carritos
-        await this.eliminarCarrito(Number(id));
+        await this.#eliminarCarrito(Number(id));
         const carritoActualizado = { id, ...resto };
 
         //Se inserta nuevamente el carrito como los productos actualizados
         await this.#persistirCarrito(carritoActualizado);
+    }
+
+    //Valida si existe el porducto con id pasado por parametro.
+    existeCarrito = async (idCarrito) => {
+        const carritosExistentes = await this.#obtenerCarritos();
+        const carritoExistente = carritosExistentes.find((carrito) => carrito.id === Number(idCarrito));
+
+        if(!carritoExistente)
+            return false;
+
+        return true;
     }
 
     crearCarrito = async () => {
@@ -73,10 +84,6 @@ export default class CartManager {
         };
 
         await this.#persistirCarrito(nuevoCarrito);
-    }
-
-    agregarProductoACarrito = async (pid) => {
-
     }
 
     consultarCarritos = async () => {

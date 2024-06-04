@@ -44,13 +44,24 @@
 		"thumbnails": "/images/modofit_producto_12.png"
 	},
 	{
+		"id": 6,
+		"title": "Leche de almanedras",
+		"description": "Lecha de almendras sin azucar",
+		"code": "IDP_003",
+		"price": 2600,
+		"status": true,
+		"stock": 20,
+		"category": "bebidas",
+		"thumbnails": "/images/modofit_producto_3.png"
+	},
+	{
 		"id": 5,
 		"title": "Jugo de arandano",
 		"description": "Jugo de arándano con pulpa endulzado con stevia",
 		"code": "IDP_001",
 		"price": 1100,
 		"status": true,
-		"stock": 18,
+		"stock": 10,
 		"category": "bebidas",
 		"thumbnails": "/images/modofit_producto_1.png"
 	}

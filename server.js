@@ -130,34 +130,54 @@ server.post('/api/carts', async (req, res) => {
 server.post('/api/carts/:cid/products/:pid', async (req, res) => {
     const { cid, pid } = req.params;
 
-    //Valida que el carrito donde se desea agregar un producto exista.
-    const carritosExistentes = await baseCarts.consultarCarritos();
-    const carritoExistente = carritosExistentes.find((carrito) => carrito.id === Number(cid));
-
-    if (!carritoExistente) 
-        return res.status(400).send({ status: "error", message: "Carrito seleccionado inexistente" });
-
     //Valida que vengan exista el producto a agregar al carrito en la base de productos.
     if(!(await baseProducts.existeProducto(pid)))
         return res.status(400).send({ status: "error", message: "Producto seleccionado para agregar al carrito inexistente"});
 
+    //Valida que el carrito donde se desea agregar un producto exista.
+    const carritosExistentes = await baseCarts.consultarCarritos();
+    const carritoExistente = carritosExistentes.find((carrito) => carrito.id === Number(cid));
+
+    if (!carritoExistente)
+        return res.status(400).send({ status: "error", message: "Carrito seleccionado inexistente" });
+
     //Obtiene array de productos del carrito seleccionado.
     const { id, products } = carritoExistente;
-
     //Valida si ya existe el producto a agregar al carrito en el mismo
-    const productoCarrito = products.find((producto) => producto.id === Number(pid)) ;
-    if (!productoCarrito){
+    const productoBuscado = products.find((producto) => producto.id === Number(pid)) ;
+
+    if (!productoBuscado){
+
+        //Si no existe, crea el producto nuevo para agregar con cantidad 1.
         const nuevoProducto = {
             id: Number(pid),
             quantity: 1
         }
         products.push(nuevoProducto);
         baseCarts.actualizarCarrito(carritoExistente);
+
+    }else{
+
+        //Si existe, suma 1 ocurrencia al producto agregado y actualiza el carrito
+        const productosFiltro = products.filter((producto) => producto.id != Number(pid));
+        const { id, quantity} = productoBuscado;
+        let quantityN = Number(quantity);
+        quantityN++;
+        const productoActualizado = {
+            id: Number(pid),
+            quantity: quantityN
+        }
+        productosFiltro.push(productoActualizado);
+        const carritoActualizado = {
+            id: Number(cid),
+            products: productosFiltro
+        };
+        await baseCarts.actualizarCarrito(carritoActualizado);
     }
 
-    return res.status(200).send({ status: "success", payload: productoCarrito });
-});
+    return res.status(200).send({ status: "success", message: "Producto agregado al cartito selecionado correctamente"});
 
+});
 
 // Método que responde a las URL inexistentes
 server.use("*", (req, res) => {
