@@ -2,10 +2,10 @@ import fs from "fs";
 import path from "path";
 
 export default class ProductManager {
-    #rutaDelArchivoDeCarritoJSON;
+    #rutaDelArchivoDeProductosJSON;
 
     constructor() {
-        this.#rutaDelArchivoDeCarritoJSON = path.join("./src/files", "products.json");
+        this.#rutaDelArchivoDeProductosJSON = path.join("./src/files", "products.json");
     }
 
     //Genera Id de nuevo producto.
@@ -23,12 +23,12 @@ export default class ProductManager {
      #obtenerProductos = async () => {
         // Se valida que exista el archivo de products.json
         // Caso contrario, se crea dicho archivo.
-        if (!fs.existsSync(this.#rutaDelArchivoDeCarritoJSON)) {
-            await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, "[]");
+        if (!fs.existsSync(this.#rutaDelArchivoDeProductosJSON)) {
+            await fs.promises.writeFile(this.#rutaDelArchivoDeProductosJSON, "[]");
         }
 
         // Se carga el contenido del archivo products.json y se retorna en formato JSON
-        const productosJSON = await fs.promises.readFile(this.#rutaDelArchivoDeCarritoJSON, "utf8");
+        const productosJSON = await fs.promises.readFile(this.#rutaDelArchivoDeProductosJSON, "utf8");
 
         // Se convierte de JSON a Array y se retorna el array de productos
         return JSON.parse(productosJSON);
@@ -42,7 +42,7 @@ export default class ProductManager {
 
         // Se vuelve a convertir a JSON y se sobrescribe el archivo products.json
         const productosActualizadosJSON = JSON.stringify(productos, null, "\t");
-        await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, productosActualizadosJSON);
+        await fs.promises.writeFile(this.#rutaDelArchivoDeProductosJSON, productosActualizadosJSON);
     }
 
     eliminarProducto = async (idProducto) => {
@@ -53,7 +53,7 @@ export default class ProductManager {
 
         // Se vuelve a convertir a JSON y se sobrescribe el archivo products.json
         const productosActualizadosJSON = JSON.stringify(productosF, null, "\t");
-        await fs.promises.writeFile(this.#rutaDelArchivoDeCarritoJSON, productosActualizadosJSON);
+        await fs.promises.writeFile(this.#rutaDelArchivoDeProductosJSON, productosActualizadosJSON);
     }
 
     actualizarProducto = async ({ id, ...resto }) => {

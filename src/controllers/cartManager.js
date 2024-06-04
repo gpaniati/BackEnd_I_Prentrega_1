@@ -57,7 +57,6 @@ export default class CartManager {
 
     consultarCarritos = async () => {
         const carritos = await this.#obtenerCarritos();
-        console.log(carritos);
         return carritos;
     }
 }

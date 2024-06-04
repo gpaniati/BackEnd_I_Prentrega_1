@@ -10,7 +10,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
 const products = new ProductManager();
-//const carts = new CartManager();
+const carts = new CartManager();
 
 // ENDPOINTS DE PRODUCTOS.
 // Endpoint: Método GET que escucha en la URL http://localhost:8080/api/products
@@ -97,6 +97,22 @@ server.delete('/api/products/:pid', async (req, res) => {
 
     await products.eliminarProducto(Number(pid));
     return res.status(200).send({ status: "success", message: "El producto ha sido eliminado" });
+});
+
+// ENDPOINTS DE CARRITOS.
+// Endpoint: Método GET que escucha en la URL http://localhost:8080/api/carts/:cid
+// Listar los productos que pertenezcan al carrito con el parámetro cid proporcionados.
+server.get('/api/carts/:cid', async (req, res) => {
+    const { cid } = req.params;
+
+    //Valida que el carrito a cosultar exista.
+    const carritosExistentes = await carts.consultarCarritos();
+    const carritoExistente = carritosExistentes.find((carrito) => carrito.id === Number(cid));
+
+    if (!carritoExistente) 
+        return res.status(400).send({ status: "error", message: "Carrito no encontrado" });
+
+    return res.status(200).send({ status: "success", payload: carritoExistente });
 });
 
 // Método que responde a las URL inexistentes
